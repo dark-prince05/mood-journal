@@ -3,6 +3,16 @@
   padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+body {
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+body.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
 
 .header {
   text-align: center;
@@ -11,15 +21,26 @@
   background-color: #0284c7;
 }
 
-.main h1 {
+.header h1 {
   margin-bottom: 1rem;
 }
 
-.weather {
+.main {
   display: grid;
-  justify-items: end;
+  grid-template-columns: 1fr 1fr;
+  justify-items: start;
   padding: 1rem;
   gap: 1rem;
+}
+
+.weather {
+  justify-self: center;
+  display: grid;
+  gap: 2rem;
+}
+
+.weather .weather-card {
+  justify-self: end;
 }
 
 .weather-card {
@@ -98,6 +119,93 @@ textarea {
   padding: 0.6rem;
   border: none;
   border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.calender {
+  justify-self: center;
+  align-self: center;
+}
+.calender button {
+  height: 3rem;
+  background: none;
+  border: none;
+  text-align: start;
+}
+
+.calender button:hover {
+  cursor: pointer;
+}
+
+.calender .all-notes {
+  background-color: #0284c7;
+  color: #ffffff;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.toggle-btn {
+  width: 4rem;
+  justify-self: end;
+  font-size: 1.3rem;
+  height: 2.5rem;
+  background-color: transparent;
+  border: 2px solid #0284c7;
+  border-radius: 0.5rem;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.dialog-box {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .dialog-box {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+.dialog-box h2 {
+  margin-top: 0;
+}
+
+.dialog-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dialog-box li {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.dialog-box .close-btn {
+  margin-top: 1rem;
+  background-color: #0284c7;
+  padding: 1rem;
+  border-radius: 6px;
+  color: #ffffff;
   cursor: pointer;
   font-weight: bold;
 }
