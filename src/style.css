@@ -185,6 +185,10 @@ body.dark .dialog-box {
   color: #f0f0f0;
 }
 
+body.dark .calender button {
+  color: #f0f0f0;
+}
+
 .dialog-box h2 {
   margin-top: 0;
 }

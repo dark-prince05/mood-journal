@@ -4,25 +4,34 @@ export default function DisplayWeather() {
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
   const [weather, setWeather] = useState("");
+  const [coords, setCoords] = useState({ lat: null, lon: null });
 
   useEffect(() => {
-    const url = "http://ip-api.com/json/";
-    fetch(url, { mode: "cors" })
-      .then((response) => {
-        if (!response.ok) {
-          setError("Unable to get location.");
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setLocation(data.city);
-      })
-      .catch((err) => {
-        setError("Error getting location.");
-        console.error("Error:", err);
-      });
+    const success = (pos) => {
+      setCoords({ lat: pos.coords.latitude, lon: pos.coords.longitude });
+    };
+
+    const error = (err) => {
+      console.log(err.message);
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error);
   }, []);
+
+  useEffect(() => {
+    if (coords.lat && coords.lon) {
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${coords.lat}&lon=${coords.lon}&format=json`,
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setLocation(data.address.city);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [coords]);
 
   useEffect(() => {
     const url = `https://api.weatherapi.com/v1/current.json?key=6625fcadd7e34a079a9113321252204&q=${location}`;
